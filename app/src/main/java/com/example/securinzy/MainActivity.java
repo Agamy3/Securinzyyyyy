@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent ii = new Intent(MainActivity.this, SERVICES.class);
+                startActivity(ii);
                 // Get email and password
                 // Validate credentials
                 // Launch home activity on success
