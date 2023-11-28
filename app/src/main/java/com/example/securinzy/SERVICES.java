@@ -36,6 +36,14 @@ public class SERVICES extends AppCompatActivity {
                 startActivity(ii);
             }
         });
+        swtest=findViewById(R.id.button_swtest);
+        swtest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iii = new Intent(SERVICES.this, softwareTesting.class);
+                startActivity(iii);
+            }
+        });
 
 
     }
