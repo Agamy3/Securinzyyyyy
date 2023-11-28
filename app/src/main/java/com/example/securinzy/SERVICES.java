@@ -44,6 +44,13 @@ public class SERVICES extends AppCompatActivity {
                 startActivity(iii);
             }
         });
+        booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iiii = new Intent(SERVICES.this , booking.class);
+                startActivity(iiii);
+            }
+        });
 
 
     }

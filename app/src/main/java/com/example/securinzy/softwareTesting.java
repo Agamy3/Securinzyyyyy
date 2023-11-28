@@ -18,12 +18,10 @@ import com.example.securinzy.databinding.ActivitySoftwareTestingBinding;
 
 public class softwareTesting extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivitySoftwareTestingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_software_testing);
     }
 }

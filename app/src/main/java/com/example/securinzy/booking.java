@@ -18,13 +18,10 @@ import com.example.securinzy.databinding.ActivityBookingBinding;
 
 public class booking extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityBookingBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_booking);
 
     }
 }
