@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class MainActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -39,12 +44,44 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ii = new Intent(MainActivity.this, SERVICES.class);
-                startActivity(ii);
+
+                String a = emailEditText.getText().toString();
+                String b = passwordEditText.getText().toString();
+                checkPwInDB(a , b);
                 // Get email and password
                 // Validate credentials
                 // Launch home activity on success
             }
+        });}
+    private void checkPwInDB(String m, String p) {
+        runOnUiThread(() -> {
+
+                    String pw = null;
+        try (Connection connection = DBConnection.getConnection()) {
+            String sql = "SELECT Password FROM ClientTable WHERE Email = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, m);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                pw = resultSet.getString("Password");
+            }
+            pstmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (pw != null && pw.equals(p)) {
+            runOnUiThread(() -> {
+                Intent ii = new Intent(MainActivity.this, SERVICES.class);
+                startActivity(ii);
+            });
+        } else {
+            System.out.println("INCORRECT EMAIL OR PASSWORD");
+        }
         });
+
     }
-}
+                // You may want to handle the SQL exception here, such as logging the error or notifying the user
+            }
+
