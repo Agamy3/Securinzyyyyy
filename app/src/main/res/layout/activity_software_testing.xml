@@ -53,18 +53,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <EditText   android:id="@+id/etDate"
         android:layout_width="225dp"
         android:layout_height="41dp"
         android:layout_marginTop="276dp"
         android:hint="Enter date"
         android:textSize="16sp"
+        android:focusable="false"
+        android:onClick="showDatePicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/book2"
+
         android:layout_width="94dp"
         android:layout_height="50dp"
         android:text="Book"
@@ -80,7 +84,7 @@
         android:layout_height="31dp"
         android:layout_marginTop="16dp"
         android:autoLink="web"
-
+        android:contentDescription="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
