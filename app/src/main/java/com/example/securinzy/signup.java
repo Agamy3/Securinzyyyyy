@@ -3,22 +3,27 @@ package com.example.securinzy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.opengl.GLDebugHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class signup extends AppCompatActivity {
+    DBHelper DB;
 
     private EditText editTextFirstName;
     private EditText editTextSecondName;
     private EditText editTextTextEmailAddress;
     private EditText editTextTextPassword;
     private EditText editTextphonenumber;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,34 +46,41 @@ public class signup extends AppCompatActivity {
         });
 
         Button sign_up = findViewById(R.id.button);
+        DB= new DBHelper(signup.this);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = editTextFirstName.getText().toString();
-                String b = editTextSecondName.getText().toString();
-                String c = editTextTextEmailAddress.getText().toString();
-                String d = editTextTextPassword.getText().toString();
-                String e = editTextphonenumber.getText().toString();
-                insertDataIntoDatabase(a, b, c, d, e);
-                Intent i = new Intent(signup.this, SERVICES.class);
-                startActivity(i);
+                String name_fi=editTextFirstName.getText().toString();
+                String name_la=editTextSecondName.getText().toString();
+                String ph_num = editTextphonenumber.getText().toString();
+                String email = editTextTextEmailAddress.getText().toString();
+                String password = editTextTextPassword.getText().toString();
+                if (name_fi.equals("")||name_la.equals("")||ph_num.equals("")||email.equals("")||password.equals("")){
+                    Toast.makeText(signup.this,"Please enter all the fields",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    boolean checkemail = DB.checkemail(email);
+                    if (checkemail==false){
+                        boolean insert = DB.insertData(email,password,name_fi,name_la,ph_num);
+                        if(insert==true){
+                            Toast.makeText(signup.this,"Sign up successfully",Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(signup.this, SERVICES.class);
+                            startActivity(i);
+                        }
+                        else {
+                            Toast.makeText(signup.this,"Sign up failed",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(signup.this,"Email already exists! please sign in",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+
             }
         });
     }
 
-    private void insertDataIntoDatabase(String firstName, String lastName, String email, String password, String phoneNumber) {
-        try (Connection connection = DBConnection.getConnection()) {
-            String sql = "INSERT INTO ClientTable (First Name, Last Name, Email, Password, Phone Number) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, firstName);
-            pstmt.setString(2, lastName);
-            pstmt.setString(3, email);
-            pstmt.setString(4, password);
-            pstmt.setString(5, phoneNumber);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // You may want to handle the SQL exception here, such as logging the error or notifying the user
-        }
-    }
+
 }

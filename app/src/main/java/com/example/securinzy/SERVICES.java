@@ -17,10 +17,12 @@ public class SERVICES extends AppCompatActivity {
         Button network;
         Button booking;
         Button pentest ;
+        Button back;
         network = findViewById(R.id.button_network);
         pentest = findViewById(R.id.button_pentest);
         swtest = findViewById(R.id.button_swtest);
         booking = findViewById(R.id.button_booking);
+        back=findViewById(R.id.button_back);
 
         pentest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +52,14 @@ public class SERVICES extends AppCompatActivity {
                 Intent iiii = new Intent(SERVICES.this , booking.class);
                 startActivity(iiii);
             }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent o = new Intent(SERVICES.this, MainActivity.class);
+                startActivity(o);
+            }
+
         });
 
 
