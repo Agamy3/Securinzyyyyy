@@ -53,6 +53,8 @@ public class softwareTesting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showConfirmationDialog();
+                // Start the service when the button is clicked
+                startBookingService();
             }
         });
     }
@@ -93,4 +95,16 @@ public class softwareTesting extends AppCompatActivity {
                 })
                 .show();
     }
+
+    private void startBookingService() {
+        // Example service, replace with your actual service implementation
+        Intent serviceIntent = new Intent();
+        serviceIntent.putExtra("selectedDate", selectedDate.getTimeInMillis());
+
+        // Use startForegroundService for foreground services
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent);
+        } else {
+            startService(serviceIntent);
 }
+}}

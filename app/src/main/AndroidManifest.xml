@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Securinzy"
         tools:targetApi="31">
+
+        <!-- Your existing activities -->
+
         <activity
             android:name=".Splash_screen"
             android:exported="false" />
@@ -60,10 +63,22 @@
             android:theme="@style/Theme.Securinzy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- BroadcastReceiver -->
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- Add other actions you want to handle -->
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
